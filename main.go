@@ -1,18 +1,23 @@
-// main.go
 package main
 
 import (
-    "github.com/gin-gonic/gin"
+	"BE_Go/config"
+	"BE_Go/routes"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-    r := gin.Default()
+	config.ConnectDB()
+	r := gin.Default()
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowMethods:     []string{"GET", "POST", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Content-Type", "Authorization"},
+		AllowCredentials: true,
+	}))
+	routes.SetupRoutes(r)
+	r.Run(":5000")
 
-    r.GET("/api/houses", func(c *gin.Context) {
-        c.JSON(200, gin.H{
-            "message": "houses will go here",
-        })
-    })
-
-    r.Run(":5000")
 }

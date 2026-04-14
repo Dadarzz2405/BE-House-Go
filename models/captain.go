@@ -1,14 +1,14 @@
 package models
 
 type Captain struct {
-	ID           int
-	Name         string
-	Username     string
-	PasswordHash string
+	ID           int    `json:"id"`
+	Name         string `json:"name"`
+	Username     string `json:"username"`
+	PasswordHash string `json:"-"`
 
-	HouseID int
-	House   *House
+	HouseID int    `json:"house_id"`
+	House   *House `json:"house"`
 
 	// Relations
-	Announcements []Announcement
+	Announcements []Announcement `json:"announcements"`
 }

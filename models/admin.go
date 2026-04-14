@@ -1,10 +1,10 @@
 package models
 
 type Admin struct {
-	ID           int
-	Name         string
-	Username     string
-	PasswordHash string
+	ID           int    `json:"id"`
+	Name         string `json:"name"`
+	Username     string `json:"username"`
+	PasswordHash string `json:"-"`
 	// Relations
-	PointTransactions []PointTransaction
+	PointTransactions []PointTransaction `json:"point_transactions"`
 }

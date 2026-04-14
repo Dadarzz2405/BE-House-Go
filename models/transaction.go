@@ -3,14 +3,14 @@ package models
 import "time"
 
 type PointTransaction struct {
-	ID           int
-	PointsChange int
-	Reason       string
-	Timestamp    time.Time
+	ID           int       `json:"id"`
+	PointsChange int       `json:"points_change"`
+	Reason       string    `json:"reason"`
+	Timestamp    time.Time `json:"timestamp"`
 
-	HouseID int
-	AdminID *int
+	HouseID int  `json:"house_id"`
+	AdminID *int `json:"admin_id"`
 
-	House *House
-	Admin *Admin
+	House *House `json:"house"`
+	Admin *Admin `json:"admin"`
 }

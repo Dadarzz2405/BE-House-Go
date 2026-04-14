@@ -1,10 +1,10 @@
 package models
 
 type Achievement struct {
-	ID          int
-	Name        string
-	Description string
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 
-	HouseID int
-	House   *House
+	HouseID int    `json:"house_id"`
+	House   *House `json:"house"`
 }

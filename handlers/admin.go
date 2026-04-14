@@ -159,7 +159,7 @@ func UpdateHouseLogo(c *gin.Context) {
 }
 
 // CreateAnnouncement allows admins to create announcements for any house
-func CreateAnnouncement(c *gin.Context) {
+func AdminCreateAnnouncement(c *gin.Context) {
 	// Admins can specify which house the announcement is for via form input
 	var input struct {
 		HouseID string `form:"house_id"`
@@ -224,7 +224,7 @@ func CreateAnnouncement(c *gin.Context) {
 }
 
 // DeleteAnnouncement allows admins to delete any announcement
-func DeleteAnnouncement(c *gin.Context) {
+func AdminDeleteAnnouncement(c *gin.Context) {
 	announcementID := c.Param("id")
 
 	var announcement models.Announcement

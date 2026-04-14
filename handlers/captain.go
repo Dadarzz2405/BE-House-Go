@@ -33,7 +33,7 @@ func GetCaptainDashboard(c *gin.Context) {
 	})
 }
 
-func CreateAnnouncement(c *gin.Context) {
+func CaptainCreateAnnouncement(c *gin.Context) {
 	captainID, _ := c.Cookie("user_id")
 
 	// switch to form instead of JSON since we have a file
@@ -86,7 +86,7 @@ func CreateAnnouncement(c *gin.Context) {
 	})
 }
 
-func DeleteAnnouncement(c *gin.Context) {
+func CaptainDeleteAnnouncement(c *gin.Context) {
 	captainID, _ := c.Cookie("user_id")
 	announcementID := c.Param("id")
 

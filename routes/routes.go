@@ -11,21 +11,31 @@ func SetupRoutes(r *gin.Engine) {
 	public := r.Group("/api")
 	{
 		public.GET("/houses", handlers.GetHouses)
+		public.GET("/houses/live", handlers.GetLivePoints)
+		public.GET("/announcements", handlers.GetAnnouncements)
 	}
 
 	admin := r.Group("/api/admin")
 	admin.Use(middleware.AuthRequired())
 	{
+		admin.GET("/dashboard", handlers.GetAdminDashboard)
 		admin.POST("/points/add", handlers.AddPoints)
+		admin.POST("/points/deduct", handlers.DeductPoints)
 		admin.POST("/house/:id/logo", handlers.UpdateHouseLogo)
-		admin.POST("/announcements", handlers.CreateAnnouncement)
-		admin.DELETE("/announcements/:id", handlers.DeleteAnnouncement)
+		admin.POST("/announcements", handlers.AdminCreateAnnouncement)
+		admin.DELETE("/announcements/:id", handlers.AdminDeleteAnnouncement)
+		admin.GET("/announcements", handlers.GetAllAnnouncements)
 	}
 
 	captain := r.Group("/api/captain")
 	captain.Use(middleware.AuthRequired())
 	{
-		captain.POST("/announcements", handlers.CreateAnnouncement)
-		captain.DELETE("/announcements/:id", handlers.DeleteAnnouncement)
+		captain.GET("/dashboard", handlers.GetCaptainDashboard)
+		captain.POST("/announcements", handlers.CaptainCreateAnnouncement)
+		captain.DELETE("/announcements/:id", handlers.CaptainDeleteAnnouncement)
 	}
+
+	r.POST("/api/auth/login", handlers.Login)
+	r.POST("/api/auth/logout", handlers.Logout)
+	r.GET("/api/auth/me", handlers.Me)
 }

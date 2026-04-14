@@ -5,7 +5,6 @@ import (
 	"context"
 	"mime/multipart"
 
-	"github.com/cloudinary/cloudinary-go/v2"
 	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/gin-gonic/gin"
 )

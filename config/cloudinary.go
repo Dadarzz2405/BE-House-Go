@@ -1,7 +1,7 @@
 package config
 
 import (
-	"os"
+	"log"
 
 	"github.com/cloudinary/cloudinary-go/v2"
 )
@@ -9,13 +9,27 @@ import (
 var CLD *cloudinary.Cloudinary
 
 func ConnectCloudinary() {
+	loadEnv()
+
+	cloudName := getEnv("CLOUDINARY_CLOUD_NAME", "CLOUDINARY_NAME")
+	apiKey := getEnv("CLOUDINARY_API_KEY", "CLOUDINARY_KEY")
+	apiSecret := getEnv("CLOUDINARY_API_SECRET", "CLOUDINARY_SECRET")
+
+	if cloudName == "" || apiKey == "" || apiSecret == "" {
+		CLD = nil
+		log.Println("cloudinary is not configured: set CLOUDINARY_CLOUD_NAME/CLOUDINARY_API_KEY/CLOUDINARY_API_SECRET or CLOUDINARY_NAME/CLOUDINARY_KEY/CLOUDINARY_SECRET")
+		return
+	}
+
 	cld, err := cloudinary.NewFromParams(
-		os.Getenv("CLOUDINARY_CLOUD_NAME"),
-		os.Getenv("CLOUDINARY_API_KEY"),
-		os.Getenv("CLOUDINARY_API_SECRET"),
+		cloudName,
+		apiKey,
+		apiSecret,
 	)
 	if err != nil {
-		panic("failed to connect to cloudinary")
+		CLD = nil
+		log.Printf("failed to connect to cloudinary: %v", err)
+		return
 	}
 	CLD = cld
 }

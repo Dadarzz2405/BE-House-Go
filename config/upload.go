@@ -3,6 +3,7 @@ package config
 import (
 	"BE_Go/models"
 	"context"
+	"errors"
 	"mime/multipart"
 
 	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
@@ -11,6 +12,10 @@ import (
 
 // UploadImage uploads a file to Cloudinary and returns the URL
 func UploadImage(file multipart.File, folder, publicID string) (string, error) {
+	if CLD == nil {
+		return "", errors.New("cloudinary client is not initialized")
+	}
+
 	// Configure upload parameters
 	var overwriteBool = true
 	uploadParams := uploader.UploadParams{

@@ -10,6 +10,7 @@ import (
 
 func main() {
 	config.ConnectDB()
+	config.ConnectCloudinary()
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:5173"},

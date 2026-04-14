@@ -12,8 +12,13 @@ func SetupRoutes(r *gin.Engine) {
 	{
 		public.GET("/houses", handlers.GetHouses)
 		public.GET("/houses/live", handlers.GetLivePoints)
+		public.GET("/live-points", handlers.GetLivePoints)
 		public.GET("/announcements", handlers.GetAnnouncements)
 	}
+
+	r.POST("/api/login", handlers.Login)
+	r.POST("/api/logout", handlers.Logout)
+	r.GET("/api/me", handlers.Me)
 
 	admin := r.Group("/api/admin")
 	admin.Use(middleware.AuthRequired())
@@ -32,10 +37,7 @@ func SetupRoutes(r *gin.Engine) {
 	{
 		captain.GET("/dashboard", handlers.GetCaptainDashboard)
 		captain.POST("/announcements", handlers.CaptainCreateAnnouncement)
+		captain.POST("/announcements/create", handlers.CaptainCreateAnnouncement)
 		captain.DELETE("/announcements/:id", handlers.CaptainDeleteAnnouncement)
 	}
-
-	r.POST("/api/auth/login", handlers.Login)
-	r.POST("/api/auth/logout", handlers.Logout)
-	r.GET("/api/auth/me", handlers.Me)
 }

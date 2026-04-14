@@ -14,6 +14,8 @@ var DB *gorm.DB
 func ConnectDB() {
 	var err error
 
+	loadEnv()
+
 	// Check STATUS to determine environment
 	status := os.Getenv("STATUS")
 	if status == "prod" {
